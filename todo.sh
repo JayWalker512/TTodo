@@ -6,8 +6,8 @@
 #alias did="~/.scripts/todo.sh -d"
 # quick info for terminal: todo -c
 
-todofile="$HOME/todo.txt"
-todotemp="/tmp/todotemp.txt"
+todofile="$HOME/Dropbox/todo.txt"
+todotemp="/tmp/ttodotemp.txt"
 
 if [ "$#" -gt "0" ]
 then
@@ -32,7 +32,12 @@ then
 		exit 0
 	    fi
     else
-	    echo "$@" >> $todofile
+        todostring="$@"
+        echo "Enter due date YYYY-MM-DD:"
+        read duedate
+        echo "$duedate,$todostring" >> $todotemp
+        sort $todotemp > $todofile
+
     fi
 fi
 
@@ -45,7 +50,7 @@ then
         echo "Nothing in TODO"
     else
         echo "TODO:"
-        cat -n "$todofile"
+        awk -F',' '{print $1" "$2}' $todofile | cat -n
     fi
 else
 	echo "Nothing in TODO"
