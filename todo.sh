@@ -35,9 +35,9 @@ then
         todostring="$@"
         echo "Enter due date YYYY-MM-DD:"
         read duedate
-        echo "$duedate,$todostring" >> $todotemp
+        cp $todofile $todotemp
+        echo "${duedate},${todostring}" >> $todotemp
         sort $todotemp > $todofile
-
     fi
 fi
 
